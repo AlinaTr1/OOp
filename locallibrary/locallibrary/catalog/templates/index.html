@@ -1,6 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+{% block title %}<title>Домашняя страница</title>{% endblock %}
 <h1>Локальная библиотека Домашняя страница</h1>
 
   <p>Добро пожаловать на <em>Локальную библиотеку</em>, очень простой веб-сайт на Django, разработанный в качестве обучающего примера в Mozilla Developer Network.</p>
@@ -13,11 +14,11 @@
     <li><strong>Копии:</strong> {{ num_instances }}</li>
     <li><strong>Доступные копии:</strong> {{ num_instances_available }}</li>
     <li><strong>Авторы:</strong> {{ num_authors }}</li>
+    <li><strong>Книги с словом портрет:</strong> {{ num_title }}</li>
   </ul>
 
 <p>
-  Вы посещали эту страницу {{ num_visits }}{% if num_visits == 1 %} раз{%
-  else %} раз{% endif %}.
+  Вы посещали эту страницу {{ num_visits }}{% if num_visits == 1 %} раз{% else %} раз{% endif %}.
 </p>
 
 {% endblock %}

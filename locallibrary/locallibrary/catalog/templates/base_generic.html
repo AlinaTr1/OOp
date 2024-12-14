@@ -23,13 +23,20 @@
             <ul class="sidebar-nav">
               <li><a href="{% url 'index' %}">Главная страница</a></li>
               <li><a href="{% url 'books' %}">Все книги</a></li>
-              <li><a href="">Все авторы</a></li>
+              <li><a href="{% url 'authors' %}">Все авторы</a></li>
+                <li><a href="{% url 'my-borrowed' %}">Книги на руках</a></li>
                  {% if user.is_authenticated %}
-     <li>User: {{ user.get_username }}</li>
+     <li>Пользователь: {{ user.get_username }}</li>
      <li><a href="{% url 'logout'%}?next={{request.path}}">Выход</a></li>
    {% else %}
      <li><a href="{% url 'login'%}?next={{request.path}}">Вход</a></li>
    {% endif %}
+                {% if perms.catalog.can_mark_returned %}
+                <p>Библиотекарь</p>
+                <li><a href="{% url 'all-borrowed' %}">Книги на руках</a></li>
+                <li><a href="{% url 'author_create' %}">Создать автора</a></li>
+                <li><a href="{% url 'book_create' %}">Создать книгу</a></li>
+              {% endif %}
             </ul>
           {% endblock %}
         </div>
@@ -43,10 +50,10 @@
           <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
         <span class="page-current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
         </span>
         {% if page_obj.has_next %}
-          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">следующая</a>
         {% endif %}
       </span>
     </div>
